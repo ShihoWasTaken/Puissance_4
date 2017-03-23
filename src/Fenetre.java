@@ -61,33 +61,16 @@ public class Fenetre extends JFrame implements MouseListener {
 				int row = p.getRow(y);
 
 				if (col == 0) {
-					p.joue(0);
 					System.out.println("e.getX() =" + e.getX());
 					System.out.println("a/7 =" + a / 7);
-					System.out.println("Je joue dans la premiere colonne");
-					// p.imprime();
-				} else if (col == 1) {
-					p.joue(1);
-					System.out.println("Je joue dans la deuxieme colonne");
-				} else if (col == 2) {
-					p.joue(2);
-					System.out.println("Je joue dans la troisieme colonne");
-				} else if (col == 3) {
-					p.joue(3);
-					System.out.println("Je joue dans la quatrieme colonne");
-				} else if (col == 4) {
-					p.joue(4);
-					System.out.println("Je joue dans la cinquieme colonne");
-				} else if (col == 5) {
-					p.joue(5);
-					System.out.println("Je joue dans la sixieme colonne");
-				} else if (col == 6) {
-					p.joue(6);
-					System.out.println("Je joue dans la septieme colonne");
-				}
+				} 
+				p.joue(col);
+				System.out.println("Je joue dans la colonne N°" + (col+1));
+				
 				setBackground(Color.blue);
 				p.imprime();
 				pan.repaint();
+				System.out.println("gagne = " + p.gagne());
 
 			}
 

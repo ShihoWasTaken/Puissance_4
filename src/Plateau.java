@@ -1,21 +1,23 @@
 //package Exo1;
 
 public class Plateau {
-	private int colonnes = 7;
-	private int rangees = 6;
+	
+	public static final int COLONNES = 7;
+	public static final int RANGEES = 6;
+	
 	private int[][] grille;
-	private int JoueurCourant;
-	private int Anne = 1;
-	private int Lucie = 2;
-	private int NIVEAUMAX = 2;
+	private int joueurCourant;
+	private static final int ANNE = 1;
+	private static final int LUCIE = 2;
+	private static final int NIVEAUMAX = 2;
 
 	double di = 0;
 	double dj = 0;
 
 	public Plateau() {
-		grille = new int[rangees][colonnes];
+		grille = new int[RANGEES][COLONNES];
 		initialiser();
-		JoueurCourant = Anne;
+		joueurCourant = ANNE;
 	}
 
 	public void setDi(double di) {
@@ -38,25 +40,25 @@ public class Plateau {
 		return grille[i][j];
 	}
 
-	public void getJoueurCourant() {
-		if (JoueurCourant == 1) {
-			System.out.print("Le joueur courant est Anne");
+	public void getjoueurCourant() {
+		if (joueurCourant == 1) {
+			System.out.print("Le joueur courant est ANNE");
 		} else {
-			System.out.print("Le joueur courant est Lucie");
+			System.out.print("Le joueur courant est LUCIE");
 		}
 	}
 
 	private void initialiser() {
-		for (int i = 0; i < rangees; i++) {
-			for (int j = 0; j < colonnes; j++) {
+		for (int i = 0; i < RANGEES; i++) {
+			for (int j = 0; j < COLONNES; j++) {
 				grille[i][j] = 0;
 			}
 		}
 	}
 
 	void imprime() {
-		for (int i = 0; i < rangees; i++) {
-			for (int j = 0; j < colonnes; j++) {
+		for (int i = 0; i < RANGEES; i++) {
+			for (int j = 0; j < COLONNES; j++) {
 				System.out.print(grille[i][j]);
 			}
 			System.out.println("");
@@ -67,167 +69,22 @@ public class Plateau {
 	void joue(int i) {
 
 		int j = 0;
-		while (j < rangees && grille[j][i] == 0) {
+		while (j < RANGEES && grille[j][i] == 0) {
 			j++;
 		}
 		if (j == 0) {
 			System.out.println("erreur colonne pleine");
 		}
-		// if(j==rangees){
-		if (JoueurCourant == 1) {
-			grille[j - 1][i] = 1;
-			JoueurCourant = 2;
-		} else {
-			grille[j - 1][i] = 2;
-			JoueurCourant = 1;
-		}
-		// }
-		/*
-		 * else { if(JoueurCourant==1){ grille[j][i]=1; JoueurCourant=2; } else{
-		 * grille[j][i]=2; JoueurCourant=1; } }
-		 */
-	}
-
-	int horizontale(int i, int j) {
-		int compteurA = 0;
-		int compteurL = 0;
-		for (int k = j; k < j + 4; k++) {
-			if (grille[i][k] == 0) {
-				return 0;
-			}
-			if (grille[i][k] == 1) {
-				compteurA = compteurA + 1;
-			}
-			if (grille[i][k] == 2) {
-				compteurL = compteurL + 1;
+		else
+		{
+			if (joueurCourant == 1) {
+				grille[j - 1][i] = 1;
+				joueurCourant = 2;
+			} else {
+				grille[j - 1][i] = 2;
+				joueurCourant = 1;
 			}
 		}
-		if (compteurA == 4) {
-			return 1;
-		} else if (compteurL == 4) {
-			return 2;
-		} else {
-			return 0;
-		}
-	}
-
-	int verticale(int i, int j) {
-		int compteurA = 0;
-		int compteurL = 0;
-		for (int k = i; k < i + 4; k++) {
-			if (grille[k][j] == 0) {
-				return 0;
-			}
-			if (grille[k][j] == 1) {
-				compteurA = compteurA + 1;
-			}
-			if (grille[k][j] == 2) {
-				compteurL = compteurL + 1;
-			}
-		}
-		if (compteurA == 4) {
-			return 1;
-		} else if (compteurL == 4) {
-			return 2;
-		} else {
-			return 0;
-		}
-	}
-
-	int diagonaleBas(int i, int j) {
-		int compteurA = 0;
-		int compteurL = 0;
-		int g = j;
-		for (int k = i; k < i + 4; k++) {
-			while (g < j + 4)
-				if (grille[k][g] == 0) {
-					return 0;
-				}
-			if (grille[k][g] == 1) {
-				compteurA = compteurA + 1;
-			}
-			if (grille[k][g] == 2) {
-				compteurL = compteurL + 1;
-			}
-			g++;
-		}
-		if (compteurA == 4) {
-			return 1;
-		} else if (compteurL == 4) {
-			return 2;
-		} else {
-			return 0;
-		}
-	}
-
-	int diagonaleHaut(int i, int j) {
-		int compteurA = 0;
-		int compteurL = 0;
-		int g = j;
-		for (int k = i; k < i - 4; k--) {
-			while (g < j + 4)
-				if (grille[k][g] == 0) {
-					return 0;
-				}
-			if (grille[k][g] == 1) {
-				compteurA = compteurA + 1;
-			}
-			if (grille[k][g] == 2) {
-				compteurL = compteurL + 1;
-			}
-			g++;
-		}
-		if (compteurA == 4) {
-			return 1;
-		} else if (compteurL == 4) {
-			return 2;
-		} else {
-			return 0;
-		}
-	}
-
-	int gagne() {
-		for (int i = 0; i < rangees; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (horizontale(i, j) == 1) {
-					return 1;
-				}
-				if (horizontale(i, j) == 2) {
-					return 2;
-				}
-			}
-		}
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < colonnes; j++) {
-				if (verticale(i, j) == 1) {
-					return 1;
-				}
-				if (verticale(i, j) == 2) {
-					return 2;
-				}
-			}
-		}
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (diagonaleBas(i, j) == 1) {
-					return 1;
-				}
-				if (diagonaleBas(i, j) == 2) {
-					return 2;
-				}
-			}
-		}
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (diagonaleHaut(i, j) == 1) {
-					return 1;
-				}
-				if (diagonaleHaut(i, j) == 2) {
-					return 2;
-				}
-			}
-		}
-		return -1;
 	}
 
 	public Plateau copiePlateau(Plateau p) {
@@ -264,6 +121,109 @@ public class Plateau {
 		} else {
 		}
 		return 0;
+	}
+	
+	/**
+	 * 
+	 * @return le numéro du joueur qui a gagné, si personne n'a encore gagné renvoie -1
+	 */
+	public int gagne()
+	{
+		boolean isAligne;
+		for(int i = 0; i < RANGEES; i++)
+		{
+			for(int j = 0; j < COLONNES; j++)
+			{
+				// Si la case n'est pas 0 c'est à dire qu'elle est occupée par un pion
+				if(grille[i][j] != 0)
+				{
+					// On vérifie si le pion réalise un alignement
+					isAligne = verifierAlignement(i, j);
+					// Si c'est le cas, on renvoie le numéro du joueur
+					if(isAligne)
+					{
+						return grille[i][j];
+					}
+				}
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * 
+	 * @param i La rangée
+	 * @param j La colonne
+	 * @return Vrai si le pion à la position grille[i][j]est aligné, Faux sinon
+	 */
+	public boolean verifierAlignement(int i, int j)
+	{
+		// Alignement en ligne à droite
+		if(j < (COLONNES - 3))
+		{
+			if( (grille[i][j] == grille[i][j+1]) && (grille[i][j] == grille[i][j+2]) && (grille[i][j] == grille[i][j+3]) )
+			{
+				return true;
+			}
+		}
+		// Alignement à gauche
+		if(j > 2)
+		{
+			if( (grille[i][j] == grille[i][j-1]) && (grille[i][j] == grille[i][j-2]) && (grille[i][j] == grille[i][j-3]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en bas
+		if(i < (RANGEES - 3))
+		{
+			if( (grille[i][j] == grille[i+1][j]) && (grille[i][j] == grille[i+2][j]) && (grille[i][j] == grille[i+3][j]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en haut
+		if(i > 2)
+		{
+			if( (grille[i][j] == grille[i-1][j]) && (grille[i][j] == grille[i-2][j]) && (grille[i][j] == grille[i-3][j]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en haut à gauche
+		if( (i > 2) && (j > 2) )
+		{
+			if( (grille[i][j] == grille[i-1][j-1]) && (grille[i][j] == grille[i-2][j-2]) && (grille[i][j] == grille[i-3][j-3]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en haut à droite
+		if( (i > 2) && (j < (COLONNES - 3)) )
+		{
+			if( (grille[i][j] == grille[i-1][j+1]) && (grille[i][j] == grille[i-2][j+2]) && (grille[i][j] == grille[i-3][j+3]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en bas à gauche
+		if( (i < (RANGEES - 3)) && (j > 2) )
+		{
+			if( (grille[i][j] == grille[i+1][j-1]) && (grille[i][j] == grille[i+2][j-2]) && (grille[i][j] == grille[i+3][j-3]) )
+			{
+				return true;
+			}
+		}
+		// Alignement en bas à droite
+		if( (i < (RANGEES - 3)) && (j < (COLONNES - 3)) )
+		{
+			if( (grille[i][j] == grille[i+1][j+1]) && (grille[i][j] == grille[i+2][j+2]) && (grille[i][j] == grille[i+3][j+3]) )
+			{
+				return true;
+			}
+		}
+		// Aucun alignement trouvé en ligne ou diagonale, on renvoie faux
+		return false;
 	}
 
 }
